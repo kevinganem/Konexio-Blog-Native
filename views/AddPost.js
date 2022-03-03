@@ -16,11 +16,22 @@ import {
   Alert,
   SafeAreaView,
 } from "react-native";
+// COMPONENTS
+import AddNewPost from "../components/AddNewPost";
 
-export default function AddPost() {
+export default function AddPost({ navigation }) {
   return (
-    <SafeAreaView>
-      <Text>Hi! AddPost</Text>
+    <SafeAreaView style={styles.container}>
+      <AddNewPost navigation={navigation} />
     </SafeAreaView>
   );
 }
+
+// CSS PART
+
+const styles = StyleSheet.create({
+  container: {
+    marginBottom: "auto",
+    marginTop: "auto",
+  },
+});

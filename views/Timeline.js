@@ -8,6 +8,7 @@
 
 // REACT
 import { useEffect, useState } from "react";
+import { useContext } from "react";
 // REACT-NATIVE
 import {
   StyleSheet,
@@ -22,10 +23,13 @@ import {
 } from "react-native";
 // COMPONENTS
 import Post from "../components/Post";
+// CONTEXT
+import { PostContext } from "../context/PostContext";
 
 export default function Timeline() {
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
+  const { addPost } = useContext(PostContext);
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/posts")
@@ -41,6 +45,13 @@ export default function Timeline() {
     <>
       <SafeAreaView>
         {posts.length === 0 && loading && <ActivityIndicator size="large" />}
+        {addPost.length !== 0 ? (
+          <FlatList
+            data={addPost}
+            renderItem={(data) => <Post post={data.item} />}
+            keyExtractor={(_, index) => index.toString()}
+          />
+        ) : null}
         <FlatList
           data={posts}
           renderItem={(data) => <Post post={data.item} />}
