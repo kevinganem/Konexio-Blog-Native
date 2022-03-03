@@ -1,22 +1,26 @@
 // --------------------------------------------------------------------------- //
 // --------------------------------------------------------------------------- //
 // --------------------------------------------------------------------------- //
-// --------------------------      APP.JS     -------------------------------- //
+// -------------------------      TIMELINE.JS     ---------------------------- //
 // --------------------------------------------------------------------------- //
 // --------------------------------------------------------------------------- //
 // --------------------------------------------------------------------------- //
 
-// REACT
-import * as React from "react";
 // REACT-NATIVE
-import { NavigationContainer } from "@react-navigation/native";
-// NAVIGATION
-import StackNavigator from "./navigation/StackNavigator";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TextInput,
+  Alert,
+  SafeAreaView,
+} from "react-native";
 
-export default function App() {
+export default function Timeline() {
   return (
-    <NavigationContainer>
-      <StackNavigator />
-    </NavigationContainer>
+    <SafeAreaView>
+      <Text>Hi! Timeline</Text>
+    </SafeAreaView>
   );
 }

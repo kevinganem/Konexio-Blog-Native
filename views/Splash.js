@@ -1,36 +1,36 @@
 // --------------------------------------------------------------------------- //
 // --------------------------------------------------------------------------- //
 // --------------------------------------------------------------------------- //
-// --------------------------      HOME.JS     ------------------------------- //
+// --------------------------      SPLASH.JS     ----------------------------- //
 // --------------------------------------------------------------------------- //
 // --------------------------------------------------------------------------- //
 // --------------------------------------------------------------------------- //
 
 // REACT
-
+import React, { useEffect } from "react";
 // REACT-NATIVE
-import { SafeAreaView, StyleSheet, Text } from "react-native";
-import { StatusBar } from "expo-status-bar";
-// COMPONENTS
+import { View, Text, StyleSheet } from "react-native";
 
-export default function Home({ navigation }) {
+const Splash = ({ navigation }) => {
+  useEffect(() => {
+    setTimeout(() => {
+      navigation.navigate("Login");
+    }, 2000);
+  }, []);
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar style="auto" />
-      <Text style={styles.text}>Welcome!</Text>
-    </SafeAreaView>
+    <View style={styles.center}>
+      <Text>Splash Screen</Text>
+    </View>
   );
-}
-
-// CSS PART
+};
 
 const styles = StyleSheet.create({
-  container: {
-    marginBottom: "auto",
-    marginTop: "auto",
-  },
-  text: {
+  center: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
     textAlign: "center",
-    fontSize: 80,
   },
 });
+
+export default Splash;

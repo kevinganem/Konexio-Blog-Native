@@ -11,8 +11,6 @@ import { useState } from "react";
 import * as React from "react";
 // REACT-NATIVE
 import { StyleSheet, Text, View, Button, TextInput, Alert } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // FORM
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -37,7 +35,7 @@ export default function Form({ navigation }) {
         text: "Home",
         onPress: () => {
           console.log("OK Pressed");
-          navigation.navigate("Home");
+          navigation.navigate("TabNavigator");
         },
       },
       {
