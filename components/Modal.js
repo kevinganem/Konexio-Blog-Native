@@ -1,7 +1,7 @@
 // --------------------------------------------------------------------------- //
 // --------------------------------------------------------------------------- //
 // --------------------------------------------------------------------------- //
-// ---------------------------      POST.JS     ------------------------------ //
+// ---------------------------      MODAL.JS     ----------------------------- //
 // --------------------------------------------------------------------------- //
 // --------------------------------------------------------------------------- //
 // --------------------------------------------------------------------------- //
@@ -16,57 +16,53 @@ import {
   View,
   Pressable,
   TouchableOpacity,
+  Modal,
   Button,
+  FlatList,
+  SafeAreaView,
 } from "react-native";
 import { Card } from "react-native-elements";
-// COMPONENTS
-import Modal from "./Modal";
 
-export default function Post(props) {
-  const [comments, setComments] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [modalVisible, setModalVisible] = useState(false);
-
-  useEffect(() => {
-    fetch(
-      `https://jsonplaceholder.typicode.com/posts/${props.post.id}/comments`
-    )
-      .then((response) => response.json())
-      .then((res) => {
-        setComments(res);
-        setLoading(false);
-      });
-  }, []);
+export default function ModalComments(props) {
   return (
-    <>
-      {props.user && (
-        <View style={styles.container}>
-          <Card containerStyle={{ width: "60%" }}>
-            <Card.Title>{props.user.title}</Card.Title>
-            <Card.Divider />
-            <Text>{props.user.body}</Text>
-          </Card>
+    <SafeAreaView style={styles.centeredView}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={props.modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          props.setModalVisible(!props.modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Comments</Text>
+            <FlatList
+              data={props.data}
+              renderItem={(data) => (
+                <View style={styles.container}>
+                  <Card containerStyle={{ width: "auto" }}>
+                    <Card.Title>{data.name}</Card.Title>
+                    <Card.Divider />
+                    <Text>{data.email}</Text>
+                    <Card.Divider />
+                    <Text>{data.body}</Text>
+                  </Card>
+                </View>
+              )}
+              keyExtractor={(_, index) => index.toString()}
+            />
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => props.setModalVisible(!props.modalVisible)}
+            >
+              <Text style={styles.textStyle}>Hide comments</Text>
+            </Pressable>
+          </View>
         </View>
-      )}
-      {modalVisible && (
-        <Modal
-          modalVisible={modalVisible}
-          data={comments}
-          setModalVisible={setModalVisible}
-        />
-      )}
-      <View style={styles.container}>
-        <Card containerStyle={{ width: "60%" }}>
-          <Card.Title>{props.post.title}</Card.Title>
-          <Card.Divider />
-          <Text>{props.post.body}</Text>
-          <Card.Divider />
-          <TouchableOpacity onPress={() => setModalVisible(true)}>
-            <Text style={styles.text}>Comments</Text>
-          </TouchableOpacity>
-        </Card>
-      </View>
-    </>
+      </Modal>
+    </SafeAreaView>
   );
 }
 
@@ -102,6 +98,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+    height: "70%",
+    width: "70%",
   },
   button: {
     borderRadius: 20,

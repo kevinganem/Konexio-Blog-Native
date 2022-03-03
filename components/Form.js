@@ -30,24 +30,7 @@ export default function Form({ navigation }) {
     console.log(data);
     setIsLogged((prev) => !prev);
     console.log(setIsLogged);
-    Alert.alert("Connected", "Welcome!", [
-      {
-        text: "Home",
-        onPress: () => {
-          console.log("OK Pressed");
-          navigation.navigate("TabNavigator");
-        },
-      },
-      {
-        text: "Disconnect",
-        onPress: () => {
-          console.log("Disconnect Pressed");
-          setIsLogged((prev) => !prev);
-          navigation.navigate("Login");
-        },
-        style: "cancel",
-      },
-    ]);
+    navigation.navigate("TabNavigator");
   };
 
   return isLogged ? (

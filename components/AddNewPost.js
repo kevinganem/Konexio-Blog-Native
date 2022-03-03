@@ -34,7 +34,6 @@ export default function AddNewPost({ navigation }) {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
     addPost.push(data);
     console.log("addPost: ", addPost);
     Alert.alert("Succed!", "New post added", [
@@ -43,7 +42,6 @@ export default function AddNewPost({ navigation }) {
         onPress: () => {
           console.log("OK Pressed");
           navigation.navigate("Home");
-          console.log("navigate ?");
         },
       },
     ]);

@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------- //
 
 // REACT
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useContext } from "react";
 // REACT-NATIVE
 import {
@@ -36,8 +36,9 @@ export default function Timeline() {
       .then((response) => response.json())
       .then((res) => {
         setPosts(res);
+        addPost.unshift(setPosts);
         setLoading(false);
-        console.log(setPosts);
+        console.log("??");
       });
   }, []);
 
@@ -45,13 +46,6 @@ export default function Timeline() {
     <>
       <SafeAreaView>
         {posts.length === 0 && loading && <ActivityIndicator size="large" />}
-        {addPost.length !== 0 ? (
-          <FlatList
-            data={addPost}
-            renderItem={(data) => <Post post={data.item} />}
-            keyExtractor={(_, index) => index.toString()}
-          />
-        ) : null}
         <FlatList
           data={posts}
           renderItem={(data) => <Post post={data.item} />}
