@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------- //
 
 // REACT
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import React from "react";
 // REACT-NATIVE
 import {
@@ -21,37 +21,21 @@ import {
 import { Card } from "react-native-elements";
 // COMPONENTS
 import Modal from "./Modal";
+// CONTEXT
+import { PostContext } from "../context/PostContext";
 
 export default function Post(props) {
-  const [comments, setComments] = useState([]);
+  const { comments, setComments } = useContext(PostContext);
   const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
+  const { addPost, setAddPost } = useContext(PostContext);
 
-  useEffect(() => {
-    fetch(
-      `https://jsonplaceholder.typicode.com/posts/${props.post.id}/comments`
-    )
-      .then((response) => response.json())
-      .then((res) => {
-        setComments(res);
-        setLoading(false);
-      });
-  }, []);
   return (
     <>
-      {props.user && (
-        <View style={styles.container}>
-          <Card containerStyle={{ width: "60%" }}>
-            <Card.Title>{props.user.title}</Card.Title>
-            <Card.Divider />
-            <Text>{props.user.body}</Text>
-          </Card>
-        </View>
-      )}
       {modalVisible && (
         <Modal
           modalVisible={modalVisible}
-          data={comments}
+          id={props.post.id}
           setModalVisible={setModalVisible}
         />
       )}

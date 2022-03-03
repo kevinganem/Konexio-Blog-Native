@@ -28,17 +28,15 @@ import { PostContext } from "../context/PostContext";
 
 export default function Timeline() {
   const [loading, setLoading] = useState(true);
-  const [posts, setPosts] = useState([]);
-  const { addPost } = useContext(PostContext);
+  const { posts, setPosts } = useContext(PostContext);
+  const { addPost, setAddPost } = useContext(PostContext);
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/posts")
       .then((response) => response.json())
       .then((res) => {
         setPosts(res);
-        addPost.unshift(setPosts);
         setLoading(false);
-        console.log("??");
       });
   }, []);
 

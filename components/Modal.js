@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------- //
 
 // REACT
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import React from "react";
 // REACT-NATIVE
 import {
@@ -22,8 +22,21 @@ import {
   SafeAreaView,
 } from "react-native";
 import { Card } from "react-native-elements";
+// CONTEXT
+import { PostContext } from "../context/PostContext";
 
 export default function ModalComments(props) {
+  const { comments, setComments } = useContext(PostContext);
+
+  useEffect(() => {
+    fetch(`https://jsonplaceholder.typicode.com/posts/${props.id}/comments`)
+      .then((response) => response.json())
+      .then((res) => {
+        setComments(res);
+        console.log(comments);
+      });
+  }, []);
+
   return (
     <SafeAreaView style={styles.centeredView}>
       <Modal
@@ -39,15 +52,15 @@ export default function ModalComments(props) {
           <View style={styles.modalView}>
             <Text style={styles.modalText}>Comments</Text>
             <FlatList
-              data={props.data}
+              data={comments}
               renderItem={(data) => (
                 <View style={styles.container}>
-                  <Card containerStyle={{ width: "auto" }}>
-                    <Card.Title>{data.name}</Card.Title>
+                  <Card containerStyle={{ width: "90%" }}>
+                    <Card.Title>{data.item.name}</Card.Title>
                     <Card.Divider />
-                    <Text>{data.email}</Text>
+                    <Text style={styles.modalText}>{data.item.email}</Text>
                     <Card.Divider />
-                    <Text>{data.body}</Text>
+                    <Text style={styles.modalText}>{data.item.body}</Text>
                   </Card>
                 </View>
               )}
@@ -85,7 +98,7 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
-    margin: 20,
+    // margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
@@ -99,7 +112,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
     height: "70%",
-    width: "70%",
+    width: "80%",
   },
   button: {
     borderRadius: 20,

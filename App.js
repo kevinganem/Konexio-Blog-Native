@@ -18,9 +18,15 @@ import { PostContext } from "./context/PostContext";
 
 export default function App() {
   const [addPost, setAddPost] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [posts, setPosts] = useState([]);
   const value = {
     addPost: addPost,
     setAddPost: setAddPost,
+    comments: comments,
+    setComments: setComments,
+    posts: posts,
+    setPosts: setPosts,
   };
 
   return (

@@ -19,6 +19,7 @@ import { PostContext } from "../context/PostContext";
 
 export default function AddNewPost({ navigation }) {
   const { addPost } = useContext(PostContext);
+  const { posts } = useContext(PostContext);
 
   const reviewSchema = yup.object({
     title: yup
@@ -40,7 +41,6 @@ export default function AddNewPost({ navigation }) {
       {
         text: "OK",
         onPress: () => {
-          console.log("OK Pressed");
           navigation.navigate("Home");
         },
       },
