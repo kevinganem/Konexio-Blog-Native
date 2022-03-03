@@ -20,6 +20,7 @@ export default function App() {
   const [addPost, setAddPost] = useState([]);
   const [comments, setComments] = useState([]);
   const [posts, setPosts] = useState([]);
+  const [userName, setUserName] = useState([]);
   const value = {
     addPost: addPost,
     setAddPost: setAddPost,
@@ -27,6 +28,8 @@ export default function App() {
     setComments: setComments,
     posts: posts,
     setPosts: setPosts,
+    userName: userName,
+    setUserName: setUserName,
   };
 
   return (

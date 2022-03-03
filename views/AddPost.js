@@ -7,15 +7,7 @@
 // --------------------------------------------------------------------------- //
 
 // REACT-NATIVE
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TextInput,
-  Alert,
-  SafeAreaView,
-} from "react-native";
+import { StyleSheet, SafeAreaView, View } from "react-native";
 // COMPONENTS
 import AddNewPost from "../components/AddNewPost";
 

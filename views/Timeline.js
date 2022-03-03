@@ -7,20 +7,10 @@
 // --------------------------------------------------------------------------- //
 
 // REACT
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useContext } from "react";
 // REACT-NATIVE
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TextInput,
-  Alert,
-  SafeAreaView,
-  FlatList,
-  ActivityIndicator,
-} from "react-native";
+import { SafeAreaView, FlatList, ActivityIndicator } from "react-native";
 // COMPONENTS
 import Post from "../components/Post";
 // CONTEXT
@@ -41,15 +31,13 @@ export default function Timeline() {
   }, []);
 
   return (
-    <>
-      <SafeAreaView>
-        {posts.length === 0 && loading && <ActivityIndicator size="large" />}
-        <FlatList
-          data={posts}
-          renderItem={(data) => <Post post={data.item} />}
-          keyExtractor={(_, index) => index.toString()}
-        />
-      </SafeAreaView>
-    </>
+    <SafeAreaView>
+      {posts.length === 0 && loading && <ActivityIndicator size="large" />}
+      <FlatList
+        data={posts}
+        renderItem={(data) => <Post post={data.item} />}
+        keyExtractor={(_, index) => index.toString()}
+      />
+    </SafeAreaView>
   );
 }

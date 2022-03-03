@@ -7,16 +7,26 @@
 // --------------------------------------------------------------------------- //
 
 // REACT
-import { useState } from "react";
+import { useState, useContext } from "react";
 import * as React from "react";
 // REACT-NATIVE
-import { StyleSheet, Text, View, Button, TextInput, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TextInput,
+  Pressable,
+} from "react-native";
 // FORM
 import { Formik } from "formik";
 import * as yup from "yup";
+// CONTEXT
+import { PostContext } from "../context/PostContext";
 
 export default function Form({ navigation }) {
   const [isLogged, setIsLogged] = useState(false);
+  const { userName, setUserName } = useContext(PostContext);
 
   const reviewSchema = yup.object({
     username: yup
@@ -27,7 +37,9 @@ export default function Form({ navigation }) {
   });
 
   const onSubmit = (data) => {
+    setUserName(data.username);
     console.log(data);
+    console.log(`fsef: ${userName}`);
     setIsLogged((prev) => !prev);
     console.log(setIsLogged);
     navigation.navigate("TabNavigator");
@@ -75,11 +87,14 @@ export default function Form({ navigation }) {
                 {props.touched.username && props.errors.username ? (
                   <Text style={styles.textError}>{props.errors.username}</Text>
                 ) : null}
-                <Button
-                  title="Connect"
-                  color="blue"
-                  onPress={props.handleSubmit}
-                />
+                <View style={styles.viewButton}>
+                  <Pressable
+                    style={[styles.button, styles.buttonOpen]}
+                    onPress={props.handleSubmit}
+                  >
+                    <Text style={styles.textStyle}>Login</Text>
+                  </Pressable>
+                </View>
               </View>
             )}
           </Formik>
@@ -113,5 +128,23 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 15,
     fontWeight: "bold",
+  },
+  button: {
+    borderRadius: 20,
+    padding: 15,
+    elevation: 2,
+    width: "70%",
+  },
+  buttonOpen: {
+    backgroundColor: "#00BFFF",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize: 15,
+  },
+  viewButton: {
+    alignItems: "center",
   },
 });

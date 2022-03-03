@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------- //
 
 // REACT
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useContext } from "react";
 import React from "react";
 // REACT-NATIVE
 import {
@@ -15,9 +15,7 @@ import {
   StyleSheet,
   View,
   Pressable,
-  TouchableOpacity,
   Modal,
-  Button,
   FlatList,
   SafeAreaView,
 } from "react-native";
@@ -50,12 +48,24 @@ export default function ModalComments(props) {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Comments</Text>
             <FlatList
               data={comments}
               renderItem={(data) => (
                 <View style={styles.container}>
-                  <Card containerStyle={{ width: "90%" }}>
+                  <Card
+                    containerStyle={{
+                      width: "90%",
+                      borderRadius: 20,
+                      shadowColor: "#000",
+                      shadowOffset: {
+                        width: 0,
+                        height: 2,
+                      },
+                      shadowOpacity: 0.25,
+                      shadowRadius: 4,
+                      elevation: 5,
+                    }}
+                  >
                     <Card.Title>{data.item.name}</Card.Title>
                     <Card.Divider />
                     <Text style={styles.modalText}>{data.item.email}</Text>
@@ -66,12 +76,14 @@ export default function ModalComments(props) {
               )}
               keyExtractor={(_, index) => index.toString()}
             />
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => props.setModalVisible(!props.modalVisible)}
-            >
-              <Text style={styles.textStyle}>Hide comments</Text>
-            </Pressable>
+            <View style={styles.viewButton}>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => props.setModalVisible(!props.modalVisible)}
+              >
+                <Text style={styles.textStyle}>Hide comments</Text>
+              </Pressable>
+            </View>
           </View>
         </View>
       </Modal>
@@ -95,13 +107,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22,
   },
   modalView: {
-    // margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 35,
+    padding: 20,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -116,14 +126,11 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 20,
-    padding: 10,
+    padding: 15,
     elevation: 2,
   },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: "#00BFFF",
   },
   textStyle: {
     color: "white",
@@ -133,5 +140,8 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: "center",
+  },
+  viewButton: {
+    marginTop: 25,
   },
 });

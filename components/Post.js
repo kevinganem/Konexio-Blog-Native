@@ -7,28 +7,17 @@
 // --------------------------------------------------------------------------- //
 
 // REACT
-import { useEffect, useState, useContext } from "react";
+import { useState } from "react";
 import React from "react";
 // REACT-NATIVE
-import {
-  Text,
-  StyleSheet,
-  View,
-  Pressable,
-  TouchableOpacity,
-  Button,
-} from "react-native";
+import { Text, StyleSheet, View, Pressable } from "react-native";
 import { Card } from "react-native-elements";
 // COMPONENTS
 import Modal from "./Modal";
 // CONTEXT
-import { PostContext } from "../context/PostContext";
 
 export default function Post(props) {
-  const { comments, setComments } = useContext(PostContext);
-  const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
-  const { addPost, setAddPost } = useContext(PostContext);
 
   return (
     <>
@@ -40,14 +29,32 @@ export default function Post(props) {
         />
       )}
       <View style={styles.container}>
-        <Card containerStyle={{ width: "60%" }}>
+        <Card
+          containerStyle={{
+            width: "60%",
+            borderRadius: 20,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 4,
+            elevation: 5,
+          }}
+        >
           <Card.Title>{props.post.title}</Card.Title>
           <Card.Divider />
-          <Text>{props.post.body}</Text>
+          <Text style={styles.text}>{props.post.body}</Text>
           <Card.Divider />
-          <TouchableOpacity onPress={() => setModalVisible(true)}>
-            <Text style={styles.text}>Comments</Text>
-          </TouchableOpacity>
+          <View style={styles.viewButton}>
+            <Pressable
+              style={[styles.button, styles.buttonOpen]}
+              onPress={() => setModalVisible(true)}
+            >
+              <Text style={styles.textStyle}>Comments</Text>
+            </Pressable>
+          </View>
         </Card>
       </View>
     </>
@@ -64,47 +71,23 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "center",
     fontSize: 15,
-    marginTop: 10,
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    marginBottom: 20,
   },
   button: {
     borderRadius: 20,
-    padding: 10,
+    padding: 15,
     elevation: 2,
+    width: "70%",
   },
   buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: "#00BFFF",
   },
   textStyle: {
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
   },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
+  viewButton: {
+    alignItems: "center",
   },
 });

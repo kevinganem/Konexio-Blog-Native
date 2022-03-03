@@ -10,7 +10,14 @@
 import * as React from "react";
 import { useContext } from "react";
 // REACT-NATIVE
-import { StyleSheet, Text, View, Button, TextInput, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  TextInput,
+  Alert,
+} from "react-native";
 // FORM
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -18,7 +25,7 @@ import * as yup from "yup";
 import { PostContext } from "../context/PostContext";
 
 export default function AddNewPost({ navigation }) {
-  const { addPost } = useContext(PostContext);
+  const { addPost, setAddPost } = useContext(PostContext);
   const { posts } = useContext(PostContext);
 
   const reviewSchema = yup.object({
@@ -41,6 +48,7 @@ export default function AddNewPost({ navigation }) {
       {
         text: "OK",
         onPress: () => {
+          posts.unshift(setAddPost);
           navigation.navigate("Home");
         },
       },
@@ -86,6 +94,7 @@ export default function AddNewPost({ navigation }) {
                     padding: 5,
                     borderRadius: 5,
                     borderColor: "lightgrey",
+                    height: 150,
                   }}
                   multiline={true}
                   placeholder="Enter a body"
@@ -96,7 +105,14 @@ export default function AddNewPost({ navigation }) {
               {props.touched.body && props.errors.body ? (
                 <Text style={styles.textError}>{props.errors.body}</Text>
               ) : null}
-              <Button title="Post" color="blue" onPress={props.handleSubmit} />
+              <View style={styles.viewButton}>
+                <Pressable
+                  style={[styles.button, styles.buttonOpen]}
+                  onPress={props.handleSubmit}
+                >
+                  <Text style={styles.textStyle}>Post</Text>
+                </Pressable>
+              </View>
             </View>
           )}
         </Formik>
@@ -120,6 +136,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "lightgrey",
     padding: 10,
+    backgroundColor: "white",
   },
   input: {
     margin: 10,
@@ -129,5 +146,22 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 15,
     fontWeight: "bold",
+  },
+  button: {
+    borderRadius: 20,
+    padding: 15,
+    elevation: 2,
+    width: "70%",
+  },
+  buttonOpen: {
+    backgroundColor: "#00BFFF",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  viewButton: {
+    alignItems: "center",
   },
 });
