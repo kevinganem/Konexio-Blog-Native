@@ -19,7 +19,7 @@ const Splash = ({ navigation }) => {
   }, []);
   return (
     <View style={styles.center}>
-      <Text>Splash Screen</Text>
+      <Text>Welcome</Text>
     </View>
   );
 };
